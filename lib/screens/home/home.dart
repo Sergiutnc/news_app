@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/models/news.dart';
+import 'package:newsapp/models/user.dart';
+import 'package:newsapp/models/userDetails.dart';
 import 'package:newsapp/screens/home/news_list.dart';
 import 'package:newsapp/services/auth.dart';
 import 'package:newsapp/services/database.dart';
+import 'package:newsapp/shared/drawer_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
+
+  User user;
+  Home({ this.user });
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +41,7 @@ class Home extends StatelessWidget {
             )
           ],
         ),
+        drawer: DrawerMenu(stream: Firestore.instance.collection('users').document(user.uid).snapshots()),
         body: NewsList(),
       ),
     );

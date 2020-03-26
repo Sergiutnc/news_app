@@ -15,10 +15,6 @@ class _NewsListState extends State<NewsList> {
 
     final news = Provider.of<List<News>>(context);
 
-    news.forEach((brew) {
-      print(brew.title);
-    });
-
     return ListView.builder(
       itemCount: news.length,
       itemBuilder: (context, index) {

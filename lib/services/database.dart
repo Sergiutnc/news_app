@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:newsapp/models/news.dart';
+import 'package:newsapp/models/user.dart';
+import 'package:newsapp/models/userDetails.dart';
 
 class DatabaseService {
 
@@ -10,9 +12,10 @@ class DatabaseService {
   final CollectionReference userCollection = Firestore.instance.collection('users');
   final CollectionReference newsCollection = Firestore.instance.collection('news');
 
-  Future updateUserData(String username, String imageUrl) async {
+  Future updateUserData(String username, String email, String imageUrl) async {
     return await userCollection.document(userUid).setData({
       'username' : username,
+      'email' : email,
       'imageUrl' : imageUrl,
     });
 
@@ -35,5 +38,16 @@ class DatabaseService {
     return newsCollection.snapshots()
         .map(_newsListFromSnapshot);
   }
+
+//  Future<UserDetails> getUserDetails (String uid) async {
+//    var result = await userCollection.document(uid).get();
+//    print(result.data['username']);
+//    print(result.data['email']);
+//    return UserDetails(
+//        username: result.data['username'],
+//        email: result.data['email'],
+//        imageUrl: result.data['imageUrl'],
+//    );
+//}
 
 }
