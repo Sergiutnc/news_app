@@ -25,6 +25,7 @@ class DatabaseService {
   List<News> _newsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return News(
+        uid: doc.documentID,
         title: doc.data['title'] ?? '',
         description: doc.data['description'] ?? '',
         summary: doc.data['summary'] ?? '',

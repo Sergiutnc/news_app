@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/models/news.dart';
+import 'package:newsapp/models/user.dart';
+import 'package:newsapp/screens/home/news_details.dart';
 
 class NewsTile extends StatelessWidget {
+
+  final User user;
   final News news;
-  NewsTile({this.news});
+  NewsTile({ this.user, this.news });
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
         padding: EdgeInsets.only(top: 8.0),
         child: Card(
@@ -18,7 +23,12 @@ class NewsTile extends StatelessWidget {
               Text(news.summary),
               // trailing: Icon(Icons.more_vert),
               isThreeLine: true,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewsDetails(user: user, newsUid: news.uid),)
+                );
+              },
             )));
   }
 }
