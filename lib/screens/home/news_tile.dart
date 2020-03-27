@@ -26,7 +26,7 @@ class NewsTile extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => NewsDetails(user: user, newsUid: news.uid),)
+                    MaterialPageRoute(builder: (context) => NewsDetails(user: user, newsUid: news.newsUid),)
                 );
               },
             )));
