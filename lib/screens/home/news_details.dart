@@ -26,7 +26,7 @@ class NewsDetails extends StatelessWidget {
           stream: Firestore.instance
               .collection('users')
               .document(user.uid)
-              .snapshots()),
+              .snapshots(), user: user),
       body: NewsContainer(
           stream: Firestore.instance
               .collection('news')

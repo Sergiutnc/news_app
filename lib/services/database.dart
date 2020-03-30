@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:newsapp/models/news.dart';
 import 'package:newsapp/models/user.dart';
-import 'package:newsapp/models/userDetails.dart';
+import 'package:newsapp/models/user_details.dart';
 
 class DatabaseService {
 
@@ -35,10 +35,26 @@ class DatabaseService {
     }).toList();
   }
 
+  // userDetails from snapshots
+  UserDetails _userDetailsFromSnapshot(DocumentSnapshot snapshot) {
+    return UserDetails(
+      uid: userUid,
+      username: snapshot.data['username'],
+      imageUrl: snapshot.data['imageUrl'],
+      email: snapshot.data['email'],
+    );
+  }
+
   // get news stream
   Stream<List<News>> get news {
     return newsCollection.snapshots()
         .map(_newsListFromSnapshot);
+  }
+
+  // get user doc stream
+  Stream<UserDetails> get userData {
+    return userCollection.document(userUid).snapshots()
+      .map(_userDetailsFromSnapshot);
   }
 
 //  Future<UserDetails> getUserDetails (String uid) async {

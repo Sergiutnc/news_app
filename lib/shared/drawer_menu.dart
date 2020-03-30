@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/models/user.dart';
 import 'package:newsapp/services/auth.dart';
+import 'package:newsapp/screens/home/edit_user_details.dart';
 
 class DrawerMenu extends StatelessWidget {
   final AuthService _auth = AuthService();
 
+  final User user;
   Stream stream;
-  DrawerMenu({this.stream});
+  DrawerMenu({this.stream, this.user});
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder(
       stream: stream,
       builder: (context, snapshot) {
@@ -27,10 +31,15 @@ class DrawerMenu extends StatelessWidget {
                   child: Image.asset(snapshot.data['imageUrl']),
                 ),
               ),
-              ListTile(
-                title: Text('edit details'),
-                trailing: Icon(Icons.settings),
-                onTap: () {},
+              FlatButton.icon(
+                icon: Icon(Icons.settings),
+                label: Text('Edit details'),
+                onPressed: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditUserDetails(user: user),)
+                );
+                },
               ),
               Divider(),
               ListTile(

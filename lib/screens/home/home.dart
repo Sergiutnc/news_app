@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/models/news.dart';
 import 'package:newsapp/models/user.dart';
-import 'package:newsapp/models/userDetails.dart';
+import 'package:newsapp/models/user_details.dart';
 import 'package:newsapp/screens/home/news_list.dart';
 import 'package:newsapp/services/auth.dart';
 import 'package:newsapp/services/database.dart';
@@ -26,7 +26,7 @@ class Home extends StatelessWidget {
           backgroundColor: Colors.red[400],
           elevation: 0.0,
         ),
-        endDrawer: DrawerMenu(stream: Firestore.instance.collection('users').document(user.uid).snapshots()),
+        endDrawer: DrawerMenu(stream: Firestore.instance.collection('users').document(user.uid).snapshots(), user: user),
         body: NewsList(user: user),
       ),
     );

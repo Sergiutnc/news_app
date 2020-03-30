@@ -17,7 +17,7 @@ class NewsList extends StatefulWidget {
 class _NewsListState extends State<NewsList> {
   @override
   Widget build(BuildContext context) {
-    final news = Provider.of<List<News>>(context);
+    final news = Provider.of<List<News>>(context) ?? [];
 
     if (news == null) {
       return Loading();
