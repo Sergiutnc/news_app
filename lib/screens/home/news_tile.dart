@@ -29,6 +29,11 @@ class NewsTile extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => NewsDetails(user: user, newsUid: news.newsUid),)
                 );
               },
+              onLongPress: () {
+                if (user.uid == news.authorUid) {
+                  print('Modifica');
+                }
+              },
             )));
   }
 }

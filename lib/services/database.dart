@@ -21,6 +21,16 @@ class DatabaseService {
 
   }
 
+  Future updateNewsData(String title, String imageUrl, String summary, String description) async {
+    return await newsCollection.document().setData({
+      'authorUid': userUid,
+      'title': title,
+      'imageUrl': imageUrl,
+      'summary': summary,
+      'description': description,
+    });
+  }
+
   // news list from snapshot
   List<News> _newsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {

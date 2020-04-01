@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/models/user.dart';
+import 'package:newsapp/screens/home/add_news.dart';
 import 'package:newsapp/services/auth.dart';
 import 'package:newsapp/screens/home/edit_user_details.dart';
 
@@ -39,6 +40,17 @@ class DrawerMenu extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => EditUserDetails(user: user),)
                 );
+                },
+              ),
+              Divider(),
+              FlatButton.icon(
+                icon: Icon(Icons.add),
+                label: Text('Add news'),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddNews(),)
+                  );
                 },
               ),
               Divider(),
