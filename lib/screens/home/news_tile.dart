@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/models/news.dart';
 import 'package:newsapp/models/user.dart';
+import 'package:newsapp/screens/home/add_news.dart';
+import 'package:newsapp/screens/home/edit_news.dart';
 import 'package:newsapp/screens/home/news_details.dart';
 
 class NewsTile extends StatelessWidget {
@@ -31,7 +33,11 @@ class NewsTile extends StatelessWidget {
               },
               onLongPress: () {
                 if (user.uid == news.authorUid) {
-                  print('Modifica');
+                  print(news.newsUid);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditNews(newsUid: news.newsUid),)
+                  );
                 }
               },
             )));

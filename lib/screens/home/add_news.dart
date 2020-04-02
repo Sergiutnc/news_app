@@ -83,6 +83,8 @@ class _AddNewsState extends State<AddNews> {
                       ),
                       SizedBox(height: 20.0),
                       TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 10,
                           decoration:
                           textInputDecoration.copyWith(hintText: 'Description'),
                           validator: (val) =>

@@ -3,20 +3,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/models/user.dart';
 import 'package:newsapp/services/auth.dart';
+import 'package:newsapp/services/database.dart';
+import 'package:newsapp/shared/like_button.dart';
+import 'package:newsapp/shared/loading.dart';
 
 class NewsContainer extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   final User user;
-  final Stream stream;
-  NewsContainer({this.stream, this.user});
+  final String newsUid;
+  NewsContainer({this.newsUid, this.user});
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder(
-      stream: stream,
+      stream: Firestore.instance
+          .collection('news')
+          .document(newsUid)
+          .snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return Text('Loading data');
+        if (!snapshot.hasData) return Loading();
+        bool isLiked = false;
         return Center(
           child: ListView(children: <Widget>[
             Container(
@@ -51,12 +59,16 @@ class NewsContainer extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        flex: 8,
+                        flex: 3,
                         child: Container(
                           child: Text(snapshot.data['title']),
                           alignment: Alignment.center,
                         ),
                       ),
+                      Expanded(
+                        flex: 1,
+                        child: LikeButton(userUid: user.uid, newsUid: newsUid),
+                      )
                     ],
                   ),
                   Container(height: 8.0),

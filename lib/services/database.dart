@@ -31,6 +31,16 @@ class DatabaseService {
     });
   }
 
+  Future editNewsData(String newsUid, String title, String imageUrl, String summary, String description) async {
+    return await newsCollection.document(newsUid).setData({
+      'authorUid': userUid,
+      'title': title,
+      'imageUrl': imageUrl,
+      'summary': summary,
+      'description': description,
+    });
+  }
+
   // news list from snapshot
   List<News> _newsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
@@ -65,6 +75,12 @@ class DatabaseService {
   Stream<UserDetails> get userData {
     return userCollection.document(userUid).snapshots()
       .map(_userDetailsFromSnapshot);
+  }
+
+  Future addLike(String newsUid, bool isLiked) async {
+    return await newsCollection.document(newsUid).collection('likes').document(userUid).setData({
+      'isLiked': !isLiked
+    });
   }
 
 //  Future<UserDetails> getUserDetails (String uid) async {
