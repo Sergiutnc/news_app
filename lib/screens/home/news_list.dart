@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 class NewsList extends StatefulWidget {
   final User user;
-  NewsList({this.user});
+  final filterType;
+  NewsList({this.user, this.filterType});
+
 
   @override
   _NewsListState createState() => _NewsListState();
@@ -18,6 +20,8 @@ class _NewsListState extends State<NewsList> {
   @override
   Widget build(BuildContext context) {
     final news = Provider.of<List<News>>(context) ?? [];
+
+    news.removeWhere((item) => item.type != widget.filterType && widget.filterType != 'all');
 
     if (news == null) {
       return Loading();

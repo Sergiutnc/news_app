@@ -6,7 +6,8 @@ class News {
   final String description;
   final String summary;
   final String imageUrl;
+  final String type;
 
-  News({ this.newsUid, this.authorUid, this.title, this.description, this.summary, this.imageUrl });
+  News({ this.newsUid, this.authorUid, this.title, this.description, this.summary, this.imageUrl, this.type });
 
 }

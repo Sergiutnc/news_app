@@ -9,6 +9,7 @@ import 'package:newsapp/shared/drawer_menu.dart';
 import 'package:newsapp/shared/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:newsapp/models/user.dart';
+import 'package:date_format/date_format.dart';
 
 class AddNews extends StatefulWidget {
   @override
@@ -18,11 +19,13 @@ class AddNews extends StatefulWidget {
 class _AddNewsState extends State<AddNews> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  final List<String> newsType = ['sports', 'politics', 'business', 'weather', 'others'];
 
   String _currentTitle = '';
   String _currentImageUrl = '';
   String _currentSummary = '';
   String _currentDescription = '';
+  String _currentType;
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +85,20 @@ class _AddNewsState extends State<AddNews> {
                               setState(() => _currentSummary = val)
                       ),
                       SizedBox(height: 20.0),
+                      DropdownButtonFormField(
+                        decoration: textInputDecoration.copyWith(hintText: 'type'),
+                        value: _currentType,
+                        items: newsType.map((type){
+                          return DropdownMenuItem(
+                            value: type,
+                            child: Text('$type'),
+                          );
+                        }).toList(),
+                        validator: (val) =>
+                        val.isEmpty ? 'Please select a type' : null,
+                        onChanged: (val) => setState(() => _currentType = val),
+                      ),
+                      SizedBox(height: 20.0),
                       TextFormField(
                           keyboardType: TextInputType.multiline,
                           maxLines: 10,
@@ -100,9 +117,10 @@ class _AddNewsState extends State<AddNews> {
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () async {
+                          print(formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy, ' ', HH, ':', nn]));
                           if(_formKey.currentState.validate()) {
                             await DatabaseService(userUid: user.uid).updateNewsData(
-                                _currentTitle, _currentImageUrl, _currentSummary, _currentDescription);
+                                _currentTitle, _currentImageUrl, _currentSummary, _currentDescription, _currentType);
                           Navigator.pop(context);
                           }
                         },

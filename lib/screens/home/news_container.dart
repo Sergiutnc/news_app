@@ -6,6 +6,7 @@ import 'package:newsapp/services/auth.dart';
 import 'package:newsapp/services/database.dart';
 import 'package:newsapp/shared/like_button.dart';
 import 'package:newsapp/shared/loading.dart';
+import 'package:newsapp/shared/map_news.dart';
 
 class NewsContainer extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -68,7 +69,19 @@ class NewsContainer extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: LikeButton(userUid: user.uid, newsUid: newsUid),
-                      )
+                      ),
+//                      Expanded(
+//                        flex: 1,
+//                        child: IconButton(
+//                            icon: Icon(Icons.map),
+//                            onPressed: (){
+//                              Navigator.push(
+//                                  context,
+//                                  MaterialPageRoute(builder: (context) => MapNews(newsUid: newsUid),)
+//                              );
+//                            },
+//                        ),
+//                      ),
                     ],
                   ),
                   Container(height: 8.0),

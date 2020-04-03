@@ -21,23 +21,25 @@ class DatabaseService {
 
   }
 
-  Future updateNewsData(String title, String imageUrl, String summary, String description) async {
+  Future updateNewsData(String title, String imageUrl, String summary, String description, String type) async {
     return await newsCollection.document().setData({
       'authorUid': userUid,
       'title': title,
       'imageUrl': imageUrl,
       'summary': summary,
       'description': description,
+      'type': type,
     });
   }
 
-  Future editNewsData(String newsUid, String title, String imageUrl, String summary, String description) async {
+  Future editNewsData(String newsUid, String title, String imageUrl, String summary, String description, String type) async {
     return await newsCollection.document(newsUid).setData({
       'authorUid': userUid,
       'title': title,
       'imageUrl': imageUrl,
       'summary': summary,
       'description': description,
+      'type': type,
     });
   }
 
@@ -51,6 +53,7 @@ class DatabaseService {
         description: doc.data['description'] ?? '',
         summary: doc.data['summary'] ?? '',
         imageUrl: doc.data['imageUrl'] ?? '',
+        type: doc.data['type'] ?? '',
       );
     }).toList();
   }

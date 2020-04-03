@@ -21,11 +21,13 @@ class EditNews extends StatefulWidget {
 class _EditNewsState extends State<EditNews> {
 
   final _formKey = GlobalKey<FormState>();
+  final List<String> newsType = ['sports', 'politics', 'business', 'weather', 'others'];
 
   String _currentTitle;
   String _currentImageUrl;
   String _currentSummary;
   String _currentDescription;
+  String _currentType;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +88,20 @@ class _EditNewsState extends State<EditNews> {
                             onChanged: (val) => setState(() => _currentSummary = val),
                           ),
                           SizedBox(height: 20.0),
+                          DropdownButtonFormField(
+                            decoration: textInputDecoration.copyWith(hintText: 'type'),
+                            value: _currentType ?? snapshot.data['type'],
+                            items: newsType.map((type){
+                              return DropdownMenuItem(
+                                value: type,
+                                child: Text('$type'),
+                              );
+                            }).toList(),
+                            validator: (val) =>
+                            val.isEmpty ? 'Please select a type' : null,
+                            onChanged: (val) => setState(() => _currentType = val),
+                          ),
+                          SizedBox(height: 20.0),
                           TextFormField(
                             keyboardType: TextInputType.multiline,
                             minLines: 1,
@@ -109,7 +125,8 @@ class _EditNewsState extends State<EditNews> {
                                     _currentTitle ?? snapshot.data['title'],
                                     _currentImageUrl ?? snapshot.data['imageUrl'],
                                     _currentSummary ?? snapshot.data['summary'],
-                                    _currentDescription ?? snapshot.data['description']);
+                                    _currentDescription ?? snapshot.data['description'],
+                                    _currentType ?? snapshot.data['type']);
                                 Navigator.pop(context);
                               }
                             },

@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
           elevation: 0.0,
         ),
         endDrawer: DrawerMenu(stream: Firestore.instance.collection('users').document(user.uid).snapshots(), user: user),
-        body: NewsList(user: user),
+        body: NewsList(user: user,filterType: 'all',),
       ),
     );
   }
